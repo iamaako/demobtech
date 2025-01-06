@@ -213,32 +213,28 @@ export default function Upload() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-dark to-dark-light">
+    <div className="min-h-screen bg-gradient-to-b from-dark to-dark-light">
       <Navbar />
-      
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
-        <div className="py-12">
-          <h1 className="text-4xl font-bold text-center mb-12 neon-glow bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">
-            Upload Playlists
-          </h1>
-
-          <div className="bg-dark-light/50 backdrop-blur-md rounded-lg p-8">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+      <main className="pt-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto py-8">
+          {/* Form Container */}
+          <div className="bg-dark-light/20 backdrop-blur-sm rounded-lg p-6 shadow-xl">
+            <h1 className="text-3xl font-bold text-white mb-8 text-center">Upload Playlist</h1>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Subject Dropdown */}
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
                   Subject
                 </label>
                 <select
-                  id="subject"
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-600 text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
-                  required
+                  className="w-full p-2 rounded-lg bg-dark-light/30 text-white border border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                 >
-                  <option value="">Select Subject</option>
+                  <option value="" className="bg-dark text-gray-400">Select Subject</option>
                   {subjects.map((subject) => (
-                    <option key={subject.id} value={subject.id}>
+                    <option key={subject.id} value={subject.id} className="bg-dark text-white">
                       {subject.name}
                     </option>
                   ))}
@@ -246,26 +242,26 @@ export default function Upload() {
               </div>
 
               {/* Chapter Dropdown */}
-              <div>
-                <label htmlFor="chapter" className="block text-sm font-medium text-gray-300 mb-2">
-                  Chapter
-                </label>
-                <select
-                  id="chapter"
-                  value={selectedChapter}
-                  onChange={(e) => setSelectedChapter(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-600 text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
-                  required
-                  disabled={!selectedSubject}
-                >
-                  <option value="">Select Chapter</option>
-                  {chapters.map((chapter) => (
-                    <option key={chapter.id} value={chapter.id}>
-                      {chapter.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {selectedSubject && (
+                <div>
+                  <label htmlFor="chapter" className="block text-sm font-medium text-gray-300 mb-2">
+                    Chapter
+                  </label>
+                  <select
+                    value={selectedChapter}
+                    onChange={(e) => setSelectedChapter(e.target.value)}
+                    className="w-full p-2 rounded-lg bg-dark-light/30 text-white border border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                    disabled={!selectedSubject}
+                  >
+                    <option value="" className="bg-dark text-gray-400">Select Chapter</option>
+                    {chapters.map((chapter) => (
+                      <option key={chapter.id} value={chapter.id} className="bg-dark text-white">
+                        {chapter.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               {/* Drag & Drop Zone */}
               <div
@@ -291,31 +287,31 @@ export default function Upload() {
               {/* Playlist Inputs */}
               <div className="space-y-4">
                 {playlists.map((playlist, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div className="flex-grow">
+                  <div key={index} className="space-y-4 md:space-y-0 md:flex md:gap-4 items-start">
+                    <div className="w-full">
                       <input
-                        type="url"
+                        type="text"
                         value={playlist.url}
                         onChange={(e) => updatePlaylist(index, 'url', e.target.value)}
-                        placeholder="YouTube Playlist URL"
-                        className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-600 text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                        placeholder="Enter YouTube Playlist URL"
+                        className="w-full px-4 py-3 text-sm md:text-base rounded-lg bg-dark-light/50 backdrop-blur-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>
-                    <div className="flex-grow">
+                    <div className="w-full">
                       <input
                         type="text"
                         value={playlist.title}
                         onChange={(e) => updatePlaylist(index, 'title', e.target.value)}
-                        placeholder="Playlist Title (Optional)"
-                        className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-600 text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                        placeholder="Enter Playlist Title (Optional)"
+                        className="w-full px-4 py-3 text-sm md:text-base rounded-lg bg-dark-light/50 backdrop-blur-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => removePlaylist(index)}
-                      className="p-3 text-gray-400 hover:text-red-500 transition-colors"
+                      className="w-full md:w-auto px-4 py-3 text-sm md:text-base font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors duration-300"
                     >
-                      <FaTimes />
+                      Remove
                     </button>
                   </div>
                 ))}
@@ -353,7 +349,7 @@ export default function Upload() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full btn-glow bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full px-6 py-3 text-sm md:text-base font-medium text-white bg-primary hover:bg-primary/80 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Uploading...' : 'Submit for Review'}
                 </button>
@@ -361,7 +357,7 @@ export default function Upload() {
             </form>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
