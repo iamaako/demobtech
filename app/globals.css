@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 30, 41, 59;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+}
+
+.neon-glow {
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.7),
+               0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+.card-glow {
+  transition: all 0.3s ease-in-out;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.5),
+              0 0 30px rgba(168, 85, 247, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.7),
+              0 0 30px rgba(168, 85, 247, 0.5);
+}
+
+.btn-glow:before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.btn-glow:hover:before {
+  opacity: 1;
+}
